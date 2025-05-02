@@ -26,7 +26,7 @@ const subjectParam = Astro.url.searchParams.get('subject');
                     - Add a hidden honeypot field matching the `netlify-honeypot` value.
                  */}
                  <form
-                    name="contact"  {/* This name is important for Netlify UI */}
+                    name="contact" netlify {/* This name is important for Netlify UI */}
                     method="POST"
                     data-netlify="true"
                     netlify-honeypot="bot-field" /* Points to the honeypot input */
