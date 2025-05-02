@@ -1,0 +1,106 @@
+---
+// src/pages/blog.astro
+import Layout from '../layouts/Layout.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
+import { getCollection } from 'astro:content';
+import { format } from 'date-fns';
+
+// Get all blog posts, sorted by date
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Extract unique tags
+const allTags = [...new Set(sortedPosts.flatMap(post => post.data.tags || []))];
+---
+<Layout title="Blog" description="Articles and insights on web development, Astro, design, and small business tech.">
+    <div class="container section-padding">
+        <h1>Blog</h1>
+        <p class="subtitle">Thoughts, tips, and tutorials.</p>
+
+        <div class="search-placeholder" style="margin-bottom: 2rem; text-align: center; padding: 1rem; background-color: #e9ecef; border-radius: var(--border-radius);">
+            <label for="blog-search" style="margin-right: 0.5rem;">Search Posts:</label>
+            <input type="search" id="blog-search" placeholder="e.g., Astro performance" disabled style="padding: 0.5em;">
+            <small style="display: block; margin-top: 0.5rem;">(Search functionality coming soon! Consider using Pagefind.js)</small>
+        </div>
+
+        {allTags.length > 0 && (
+            <div class="tag-filter" style="margin-bottom: 2rem;">
+                <strong>Filter by Tag:</strong>
+                {allTags.map(tag => (
+                     <a href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag">{tag}</a>
+                ))}
+                 <a href="/blog" class="tag" style="background-color: var(--color-primary); color: var(--color-white);">Show All</a>
+            </div>
+        )}
+
+        <hr class="bold-divider" />
+
+        <div class="post-list">
+            {sortedPosts.length === 0 ? (
+                <p>No blog posts found yet. Check back soon!</p>
+            ) : (
+                sortedPosts.map(post => (
+                    <article class="post-list-item">
+                        <h2><a href={`/blog/${post.slug}/`}>{post.data.title}</a></h2>
+                        <p class="post-meta">
+                            <time datetime={post.data.pubDate.toISOString()}>{format(post.data.pubDate, 'MMMM d, yyyy')}</time>
+                             {post.data.tags && post.data.tags.length > 0 && ' | Tags: '}
+                             {post.data.tags?.map((tag, index) => (
+                                <>
+                                <a href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag-inline">{tag}</a>{index < post.data.tags.length - 1 ? ', ' : ''}
+                                </>
+                            ))}
+                        </p>
+                        <p>{post.data.description}</p>
+                        <a href={`/blog/${post.slug}/`} class="button button-primary read-more-btn">Read More &rarr;</a>
+                    </article>
+                ))
+            )}
+        </div>
+
+        <NewsletterSignup />
+
+    </div>
+</Layout>
+
+<style>
+.container { max-width: 900px; margin: 0 auto; }
+.subtitle { font-size: 1.2rem; color: #6c757d; margin-top: -1rem; margin-bottom: 2rem; }
+.tag-filter { line-height: 1.8; }
+.tag { display: inline-block; background-color: #e9ecef; color: var(--color-primary); padding: 0.2em 0.6em; margin: 0.2em 0.3em; border-radius: var(--border-radius); font-size: 0.9rem; text-decoration: none; transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease; }
+.tag:hover { background-color: var(--color-accent); color: var(--color-white); }
+.tag-inline { color: var(--color-accent); text-decoration: none; }
+.tag-inline:hover { text-decoration: underline; }
+
+.post-list-item {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #dee2e6; /* Lighter divider */
+}
+.post-list-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.post-list-item h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+.post-list-item h2 a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+.post-list-item h2 a:hover {
+    color: var(--color-accent);
+}
+.post-meta {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+.read-more-btn {
+    padding: 0.5em 1em; /* Smaller button */
+    font-size: 0.9rem;
+}
+
+</style>

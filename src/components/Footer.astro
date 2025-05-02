@@ -1,0 +1,26 @@
+---
+// src/components/Footer.astro
+const currentYear = new Date().getFullYear();
+---
+<footer class="site-footer">
+    <div class="container">
+        <p>&copy; {currentYear} Your Name. All rights reserved.</p>
+        </div>
+</footer>
+
+<style>
+.site-footer {
+    background-color: var(--color-primary);
+    color: rgba(255, 255, 255, 0.7); /* Lighter white */
+    padding: 2rem 0;
+    margin-top: 4rem; /* Space above footer */
+    text-align: center;
+    font-size: 0.9rem;
+}
+.site-footer .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+/* Style social links if added */
+</style>

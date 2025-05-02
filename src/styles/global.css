@@ -1,0 +1,116 @@
+/* src/styles/global.css */
+
+/* Import the chosen font (ensure you link it in your Layout head or install locally) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap');
+
+:root {
+  /* Color Palette */
+  --color-primary: #0A1A3A; /* Deep Navy */
+  --color-accent: #FF6B6B; /* Coral Orange */
+  --color-background: #F8F9FA; /* Soft Off-White */
+  --color-text: #212529; /* Dark Grey for readability */
+  --color-white: #FFFFFF;
+
+  /* Typography */
+  --font-primary: 'Inter', sans-serif;
+  --font-secondary: 'Space Grotesk', sans-serif; /* Example: Use for headings */
+
+  /* Other variables */
+  --border-radius: 4px;
+  --transition-speed: 0.3s;
+}
+
+html {
+  scroll-behavior: smooth; /* For smooth anchor link scrolling */
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  font-size: 16px; /* Base font size */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-secondary); /* Use Space Grotesk for headings */
+  color: var(--color-primary);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-speed) ease;
+}
+
+a:hover, a:focus {
+  color: var(--color-accent);
+}
+
+/* Basic Button Styling */
+.button {
+  display: inline-block;
+  padding: 0.75em 1.5em;
+  border-radius: var(--border-radius);
+  font-family: var(--font-secondary); /* Button text more prominent */
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform var(--transition-speed) ease;
+  border: none;
+}
+
+.button-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.button-primary:hover, .button-primary:focus {
+  background-color: darken(var(--color-primary), 10%); /* Need a utility or preprocessor for darken, or use a slightly darker hex */
+  color: var(--color-white); /* Keep text color */
+  transform: translateY(-2px); /* Subtle lift */
+}
+
+.button-accent {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+}
+
+.button-accent:hover, .button-accent:focus {
+  background-color: darken(var(--color-accent), 10%); /* Darken accent */
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+/* Bold Divider Style */
+hr.bold-divider {
+  border: 0;
+  height: 3px;
+  background-color: var(--color-primary);
+  margin: 2rem 0;
+}
+
+/* Utility class for sections */
+.section-padding {
+    padding: 3rem 1rem; /* Adjust padding as needed */
+}
+
+@media (min-width: 768px) {
+    .section-padding {
+        padding: 5rem 2rem;
+    }
+}

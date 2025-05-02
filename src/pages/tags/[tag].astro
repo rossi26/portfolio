@@ -1,0 +1,64 @@
+---
+// src/pages/tags/[tag].astro
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { format } from 'date-fns';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+  const uniqueTags = [...new Set(allPosts.flatMap(post => post.data.tags || []))];
+
+  // Return paths for each tag
+  return uniqueTags.map(tag => {
+    const filteredPosts = allPosts.filter(post => post.data.tags?.includes(tag));
+    const prettyTag = tag; // Keep original capitalization for display
+    const slugTag = tag.toLowerCase().replace(/\s+/g, '-'); // Slugify for URL
+    return {
+      params: { tag: slugTag },
+      props: { posts: filteredPosts, tagName: prettyTag },
+    };
+  });
+}
+
+const { posts, tagName } = Astro.props;
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<Layout title={`Posts tagged with "${tagName}"`} description={`Find all blog posts tagged with ${tagName}.`}>
+    <div class="container section-padding">
+        <h1>Posts tagged with: "{tagName}"</h1>
+
+        <hr class="bold-divider" />
+
+        <div class="post-list">
+             {sortedPosts.length === 0 ? (
+                <p>No posts found with this tag.</p>
+            ) : (
+                sortedPosts.map(post => (
+                    <article class="post-list-item">
+                        <h2><a href={`/blog/${post.slug}/`}>{post.data.title}</a></h2>
+                        <p class="post-meta">
+                            <time datetime={post.data.pubDate.toISOString()}>{format(post.data.pubDate, 'MMMM d, yyyy')}</time>
+                        </p>
+                        <p>{post.data.description}</p>
+                        <a href={`/blog/${post.slug}/`} class="button button-primary read-more-btn">Read More &rarr;</a>
+                    </article>
+                ))
+            )}
+        </div>
+
+         <hr class="bold-divider" style="margin-top: 3rem;" />
+
+        <a href="/blog" class="button button-primary">&larr; Back to Blog Index</a>
+         </div>
+</Layout>
+
+<style>
+.container { max-width: 900px; margin: 0 auto; }
+.post-list-item { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid #dee2e6; }
+.post-list-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.post-list-item h2 { margin-top: 0; margin-bottom: 0.5rem; }
+.post-list-item h2 a { color: var(--color-primary); text-decoration: none; }
+.post-list-item h2 a:hover { color: var(--color-accent); }
+.post-meta { font-size: 0.9rem; color: #6c757d; margin-bottom: 1rem; }
+.read-more-btn { padding: 0.5em 1em; font-size: 0.9rem; }
+</style>

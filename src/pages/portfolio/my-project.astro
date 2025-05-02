@@ -1,0 +1,82 @@
+---
+// src/pages/portfolio/my-project.astro
+import Layout from '../../layouts/Layout.astro';
+// import CodeBlock from '../../components/CodeBlock.astro'; // You'd create this
+// import ImageCompare from '../../components/ImageCompare.astro'; // Optional: for before/after
+---
+<Layout title="Case Study: Project Name" description="Deep dive into the technical details and results of [Project Name].">
+    <div class="container section-padding">
+        <h1>Case Study: [Project Name]</h1>
+        <p class="subtitle">Helping [Client Type] achieve [Primary Goal] with Astro.</p>
+
+        <hr class="bold-divider" />
+
+        <section id="problem">
+            <h2>The Challenge</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Describe the client's problem, their previous situation, and their objectives.</p>
+            <ul>
+                <li>Pain point 1 (e.g., Slow website speed)</li>
+                <li>Pain point 2 (e.g., Poor mobile experience)</li>
+                <li>Pain point 3 (e.g., Difficult content updates)</li>
+            </ul>
+        </section>
+
+        <section id="solution">
+            <h2>My Solution</h2>
+            <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Explain your approach, the technologies used (emphasize Astro), and the key features implemented.</p>
+             <img src="/placeholder-project-mockup.jpg" alt="Mockup of the final project" style="max-width: 100%; height: auto; margin-block: 1rem;">
+        </section>
+
+        <section id="visuals">
+            <h2>Visuals & Design</h2>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Discuss the design choices, branding alignment, and show visual examples.</p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-block: 1rem;">
+                 <img src="/placeholder-desktop.jpg" alt="Desktop view" style="max-width: 45%; height: auto;">
+                 <img src="/placeholder-mobile.jpg" alt="Mobile view" style="max-width: 45%; height: auto;">
+            </div>
+        </section>
+
+        <section id="technical-breakdown">
+            <h2>Technical Breakdown</h2>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore. Highlight specific technical implementations.</p>
+
+            <h3>Astro Components & Islands</h3>
+            <p>Explain a key component or how Astro Islands were used for interactive elements.</p>
+            <pre><code>{`<script> console.log('Interactive island!'); </script>
+<div> This component is interactive! </div>
+`}</code></pre>
+
+            <h3>Performance Optimizations</h3>
+            <p>Detail specific steps taken, e.g., image optimization, critical CSS, reducing JS.</p>
+            <img src="/placeholder-lighthouse.png" alt="Lighthouse score showing 90+" style="max-width: 300px; height: auto; margin-block: 1rem;">
+
+            <h3>Responsive Design Implementation</h3>
+            <p>Showcase how CSS Grid/Flexbox or specific techniques were used.</p>
+            <pre><code>{`.container { padding: 0 1rem; }
+@media (min-width: 768px) { .container { padding: 0 2rem; } }`}</code></pre>
+        </section>
+
+        <section id="challenges-solved">
+            <h2>Challenges Solved & Results</h2>
+            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia. Quantify the results whenever possible.</p>
+            <ul>
+                <li><strong>Result 1:</strong> Reduced load time by 40% (LCP from 4s to 2.4s).</li>
+                <li><strong>Result 2:</strong> Improved mobile usability score by 25 points.</li>
+                <li><strong>Result 3:</strong> Client can now update content 5x faster.</li>
+            </ul>
+        </section>
+
+        <hr class="bold-divider" />
+
+        <a href="/#portfolio-teaser" class="button button-primary">&larr; Back to Home</a>
+
+    </div>
+</Layout>
+
+<style is:global> /* Use is:global carefully or scope styles */
+    .container { max-width: 900px; margin: 0 auto; }
+    .subtitle { font-size: 1.2rem; color: #6c757d; margin-top: -1rem; margin-bottom: 2rem;}
+    section { margin-bottom: 3rem; }
+    section h2 { border-left: 4px solid var(--color-accent); padding-left: 0.75rem; }
+    pre { background-color: #282c34; color: #abb2bf; padding: 1em; border-radius: var(--border-radius); overflow-x: auto; font-size: 0.9em;} /* Basic code block style */
+</style>

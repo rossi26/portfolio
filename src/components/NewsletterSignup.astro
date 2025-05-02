@@ -1,0 +1,60 @@
+---
+// src/components/NewsletterSignup.astro
+// This is a placeholder. Integration requires a backend or third-party service.
+---
+<div class="newsletter-signup">
+    <h3>Stay Updated</h3>
+    <p>Get tips on web design, Astro, and small business tech straight to your inbox.</p>
+    <form action="#" method="POST"> <label for="email-signup" class="sr-only">Email address</label>
+        <input type="email" id="email-signup" name="email" placeholder="your.email@example.com" required>
+        <button type="submit" class="button button-accent">Subscribe</button>
+    </form>
+</div>
+
+<style>
+.newsletter-signup {
+    background-color: #e9ecef; /* Light background */
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-top: 2rem;
+    text-align: center;
+}
+.newsletter-signup h3 {
+    margin-top: 0;
+    color: var(--color-primary);
+}
+.newsletter-signup form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    align-items: center;
+}
+@media (min-width: 500px) {
+    .newsletter-signup form {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+.newsletter-signup input[type="email"] {
+    padding: 0.75em;
+    border: 1px solid #ced4da;
+    border-radius: var(--border-radius);
+    flex-grow: 1;
+    max-width: 300px; /* Limit width */
+}
+.newsletter-signup button {
+    white-space: nowrap; /* Prevent wrap */
+}
+.sr-only { /* Screenreader only class */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+</style>

@@ -1,0 +1,54 @@
+---
+// src/components/Header.astro
+---
+<header class="site-header">
+    <nav class="container">
+        <a href="/" class="logo">Your Name</a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/portfolio/my-project">Portfolio</a></li>
+            <li><a href="/why-hire-me">Why Hire Me</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<style>
+.site-header {
+    background-color: var(--color-primary);
+    padding: 1rem 0;
+    color: var(--color-white);
+}
+.site-header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+.site-header .logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--color-white);
+    text-decoration: none;
+    font-family: var(--font-secondary);
+}
+.site-header ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1.5rem;
+}
+.site-header a {
+    color: var(--color-white);
+    text-decoration: none;
+    transition: color var(--transition-speed) ease;
+}
+.site-header a:hover, .site-header a:focus {
+    color: var(--color-accent);
+}
+/* Add mobile navigation styles here (e.g., burger menu) */
+</style>

@@ -1,0 +1,119 @@
+---
+// src/pages/contact.astro
+import Layout from '../layouts/Layout.astro';
+
+// Get query params for potential pre-filled subject (e.g., from audit button)
+const subjectParam = Astro.url.searchParams.get('subject');
+---
+<Layout title="Contact Me" description="Get in touch for project inquiries, questions, or a free landing page audit.">
+    <div class="container section-padding">
+        <h1>Contact Me</h1>
+        <p class="subtitle">Have a project in mind, a question, or want that free audit? Let's talk!</p>
+
+        <hr class="bold-divider" />
+
+        <div class="contact-grid">
+            <div class="contact-form">
+                <h2>Send a Message</h2>
+                 <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <p class="hidden" style="display: none;">
+                         <label>Don’t fill this out if you’re human: <input name="bot-field"></label>
+                     </p>
+                    <input type="hidden" name="form-name" value="contact" />
+
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" value={subjectParam || ''} required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="button button-accent">Send Message</button>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <h2>Other Ways to Reach Me</h2>
+                <p>You can also find me here:</p>
+                <ul>
+                    <li><strong>Email:</strong> <a href="mailto:your.email@example.com">your.email@example.com</a></li>
+                    <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">[Your LinkedIn Profile]</a> (Optional)</li>
+                    <li><strong>GitHub:</strong> <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">[Your GitHub Profile]</a> (Optional)</li>
+                    </ul>
+                <p>I aim to respond within 1-2 business days.</p>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style>
+.container { max-width: 1000px; margin: 0 auto; }
+.subtitle { font-size: 1.2rem; color: #6c757d; margin-top: -1rem; margin-bottom: 2rem; }
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+@media (min-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 2fr 1fr; /* Form takes more space */
+    }
+}
+.contact-form h2, .contact-info h2 {
+    margin-top: 0;
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75em;
+    border: 1px solid #ced4da;
+    border-radius: var(--border-radius);
+    font-family: inherit;
+    font-size: 1rem;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px rgba(var(--color-accent-rgb), 0.25); /* Define --color-accent-rgb or use a fixed color */
+}
+.contact-info ul {
+    list-style: none;
+    padding: 0;
+}
+.contact-info li {
+    margin-bottom: 1rem;
+}
+.contact-info li strong {
+    color: var(--color-primary);
+}
+.contact-info a {
+    color: var(--color-accent);
+    text-decoration: underline;
+}
+.contact-info a:hover {
+    color: var(--color-primary);
+}
+</style>

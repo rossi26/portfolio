@@ -1,0 +1,32 @@
+---
+// src/pages/blog/[...slug].astro
+// Import the content collection utility and the blog post layout
+import { getCollection } from 'astro:content';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+
+// This function runs at build time to determine which pages to generate
+export async function getStaticPaths() {
+  // Retrieve all entries from the 'blog' collection
+  const posts = await getCollection('blog');
+  // Map each post to an object containing params (for the URL slug) and props (data to pass to the page)
+  return posts.map(post => ({
+    params: { slug: post.slug }, // The 'slug' part of the URL comes from the file name or frontmatter slug
+    props: post, // Pass the entire post object (including data and body) as props
+  }));
+}
+
+// Get the specific post object passed as props from getStaticPaths
+// No explicit TypeScript type needed here.
+const post = Astro.props;
+
+// Render the Markdown/MDX content of the post into an Astro component
+const { Content } = await post.render();
+---
+{/*
+  Use the BlogLayout component.
+  Pass the post's frontmatter data (title, date, tags, etc.) to the layout.
+*/}
+<BlogLayout frontmatter={post.data}>
+	{/* Render the actual post content (rendered from MDX/Markdown) inside the layout */}
+	<Content />
+</BlogLayout>

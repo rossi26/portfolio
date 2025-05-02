@@ -1,0 +1,148 @@
+---
+// src/layouts/BlogLayout.astro
+// Import the main layout and date formatting utility
+import Layout from './Layout.astro';
+import { format } from 'date-fns'; // Make sure to install: npm install date-fns
+
+// Get the frontmatter directly from Astro.props (passed from the page using this layout)
+// No explicit TypeScript interface needed here.
+const { frontmatter } = Astro.props;
+
+// Format dates for display
+const formattedDate = format(frontmatter.pubDate, 'MMMM d, yyyy'); // e.g., May 2, 2025
+const updatedDate = frontmatter.updatedDate ? format(frontmatter.updatedDate, 'MMMM d, yyyy') : null;
+
+// Helper function to slugify tags for URLs
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, '-')     // Replace spaces with -
+    .replace(/[^\w-]+/g, '') // Remove all non-word chars
+    .replace(/--+/g, '-')     // Replace multiple - with single -
+    .replace(/^-+/, '')       // Trim - from start of text
+    .replace(/-+$/, '');      // Trim - from end of text
+}
+---
+{/* Use the main Layout, passing the post title and description */}
+<Layout title={frontmatter.title} description={frontmatter.description}>
+	<article class="container blog-post section-padding">
+		{/* Display the post title */}
+		<h1>{frontmatter.title}</h1>
+
+		{/* Display post metadata */}
+		<div class="post-meta">
+            <span>Published on <time datetime={frontmatter.pubDate.toISOString()}>{formattedDate}</time></span>
+            {/* Conditionally display updated date */}
+            {updatedDate && <span> | Updated on <time datetime={frontmatter.updatedDate?.toISOString()}>{updatedDate}</time></span>}
+        </div>
+
+        {/* Conditionally display tags */}
+        {frontmatter.tags && frontmatter.tags.length > 0 && (
+            <div class="tags">
+                Tags:
+                {/* Map through tags and create links */}
+                {frontmatter.tags.map(tag => (
+                    <a href={`/tags/${slugify(tag)}`} class="tag">{tag}</a>
+                ))}
+            </div>
+        )}
+
+        {/* Divider */}
+        <hr class="bold-divider" />
+
+		{/* Render the actual blog post content */}
+		<div class="post-content">
+			<slot /> {/* The Markdown/MDX content from the page file is injected here */}
+		</div>
+
+        {/* Divider */}
+        <hr class="bold-divider" />
+
+        {/* Link back to the main blog page */}
+        <a href="/blog" class="button button-primary">&larr; Back to Blog</a>
+
+	</article>
+</Layout>
+
+{/* Styles for the blog post layout */}
+<style>
+	.container {
+		max-width: 800px; /* Optimal reading width */
+		margin: 0 auto;
+		padding: 0 1rem;
+	}
+    .blog-post h1 {
+        margin-bottom: 0.5rem; /* Spacing below title */
+    }
+    .post-meta {
+        font-size: 0.9rem;
+        color: #6c757d; /* Grey color for meta text */
+        margin-bottom: 0.5rem;
+    }
+    .tags {
+        margin-bottom: 2rem; /* Space below tags */
+        font-size: 0.9rem;
+    }
+    .tag {
+        display: inline-block;
+        background-color: #e9ecef; /* Light grey background */
+        color: var(--color-primary); /* Use primary color for text */
+        padding: 0.2em 0.6em; /* Padding around tag text */
+        margin-left: 0.5em; /* Space between tags */
+        border-radius: var(--border-radius); /* Use global border radius */
+        font-size: 0.85rem;
+        text-transform: capitalize; /* Capitalize tags */
+        text-decoration: none; /* Remove underline from links */
+    }
+    .tag:hover {
+        background-color: var(--color-accent); /* Use accent color on hover */
+        color: var(--color-white); /* White text on hover */
+    }
+    /* Styles for content coming from Markdown/MDX */
+    .post-content {
+         line-height: 1.7; /* Improve readability */
+    }
+    .post-content h2 { margin-top: 2em; margin-bottom: 0.5em;}
+    .post-content h3 { margin-top: 1.8em; margin-bottom: 0.5em;}
+    .post-content p { margin-bottom: 1.2em; }
+    .post-content ul, .post-content ol { margin-bottom: 1.2em; padding-left: 1.5em; }
+    .post-content li { margin-bottom: 0.5em; }
+    .post-content blockquote {
+        border-left: 4px solid var(--color-accent); /* Accent color border */
+        padding-left: 1em;
+        margin-left: 0;
+        margin-bottom: 1.2em;
+        font-style: italic;
+        color: #5a6268; /* Slightly darker grey for quotes */
+    }
+    .post-content a { /* Style links within the post content */
+        color: var(--color-accent);
+        text-decoration: underline;
+    }
+    .post-content a:hover {
+        color: var(--color-primary);
+    }
+    .post-content code { /* Basic inline code styling */
+        background-color: #e9ecef;
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-size: 0.9em;
+    }
+    .post-content pre { /* Basic code block styling */
+        background-color: #282c34; /* Dark background for code blocks */
+        color: #abb2bf; /* Light text color */
+        padding: 1em;
+        border-radius: var(--border-radius);
+        overflow-x: auto; /* Allow horizontal scrolling for long lines */
+        font-size: 0.9em;
+        margin-bottom: 1.2em;
+    }
+    .post-content pre code { /* Reset styles for code inside pre */
+         background-color: transparent;
+         padding: 0;
+         font-size: inherit;
+         color: inherit;
+    }
+
+</style>

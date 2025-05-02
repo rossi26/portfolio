@@ -1,0 +1,67 @@
+---
+// src/components/SkillCard.astro
+interface Props {
+    icon?: string; // Name or path to an SVG icon
+    title: string;
+    description: string;
+}
+
+const { icon, title, description } = Astro.props;
+
+// In a real scenario, you might have an Icon component:
+// import Icon from './Icon.astro';
+---
+
+<div class="skill-card">
+    {icon && (
+        <div class="icon-wrapper">
+            {/* Placeholder for icon - replace with actual <Icon name={icon}/> or <img> */}
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-placeholder">
+                <path d="M12 2 L12 22 M2 12 L22 12" /> {/* Example + icon */}
+            </svg>
+        </div>
+    )}
+    <h3 class="skill-title">{title}</h3>
+    <p class="skill-description">{description}</p>
+</div>
+
+<style>
+    .skill-card {
+        background-color: var(--color-white); /* Use white or off-white */
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+        text-align: center;
+        transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    }
+
+    .skill-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .icon-wrapper {
+        margin-bottom: 1rem;
+    }
+
+    .icon-wrapper svg { /* Style your actual icon */
+        stroke: var(--color-accent); /* Coral Orange icon */
+        width: 40px;
+        height: 40px;
+        margin: 0 auto; /* Center icon */
+    }
+
+    .skill-title {
+        font-family: var(--font-secondary); /* Space Grotesk */
+        color: var(--color-primary); /* Navy */
+        font-size: 1.25rem;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .skill-description {
+        font-size: 0.95rem;
+        color: var(--color-text);
+        line-height: 1.5;
+    }
+</style>

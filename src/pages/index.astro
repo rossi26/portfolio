@@ -1,16 +1,103 @@
 ---
+// src/pages/index.astro
+import Layout from '../layouts/Layout.astro';
+import SkillCard from '../components/SkillCard.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
+import { getCollection } from 'astro:content';
+import { format } from 'date-fns';
 
+// Get featured blog posts
+const featuredPosts = await getCollection('blog', ({ data }) => {
+  return data.featured === true;
+});
+// Sort by date descending, limit to 3
+const sortedFeatured = featuredPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Home - Your Name | Web Development for Small Businesses">
+    <section class="hero section-padding" style="background-color: var(--color-primary); color: var(--color-white); text-align: center;">
+        <div class="container">
+            <h1 style="color: var(--color-white); font-size: 3rem;">Build Your Blazing-Fast Website</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Affordable, high-performance sites for small businesses using Astro.</p>
+            <a href="/portfolio/my-project" class="button button-accent">View My Work</a>
+            <a href="/why-hire-me#audit" class="button" style="background-color: transparent; border: 1px solid var(--color-white); color: var(--color-white); margin-left: 1rem;">Get Free Audit</a>
+        </div>
+    </section>
+
+    <section id="skills" class="section-padding">
+        <div class="container">
+             <h2 style="text-align: center; margin-bottom: 2rem;">Core Competencies</h2>
+            <div class="skills-grid">
+                <SkillCard icon="astro" title="Astro Static Sites" description="Leveraging Astro for maximum performance, security, and SEO." />
+                <SkillCard icon="mobile" title="Mobile-First Design" description="Ensuring your site looks and works perfectly on all devices." />
+                 <SkillCard icon="business" title="Small Business Solutions" description="Tailored web strategies focused on growth for small teams." />
+                <SkillCard icon="performance" title="Performance Optimization" description="Achieving 90+ Lighthouse scores for speed and user experience." />
+            </div>
+        </div>
+    </section>
+
+    <hr class="bold-divider" />
+
+    <section id="portfolio-teaser" class="section-padding">
+        <div class="container" style="text-align: center;">
+            <h2>Featured Project</h2>
+            <p>See how I helped a client achieve [Specific Result, e.g., 40% faster load times].</p>
+            <img src="/placeholder-portfolio.jpg" alt="Portfolio project mockup" style="max-width: 100%; height: auto; border-radius: var(--border-radius); margin-block: 1rem;">
+            <a href="/portfolio/my-project" class="button button-primary">View Case Study</a>
+        </div>
+    </section>
+
+    <hr class="bold-divider" />
+
+    <section id="process-teaser" class="section-padding" style="background-color: #e9ecef;">
+        <div class="container" style="text-align: center;">
+            <h2>My Simple, Transparent Process</h2>
+            <p>From discovery to launch, I keep you informed every step of the way.</p>
+             <img src="/placeholder-roadmap.svg" alt="Workflow: Discovery, Wireframing, Development, Launch" style="max-width: 100%; height: auto; margin-block: 1rem;">
+            <a href="/why-hire-me#process" class="button button-primary">Learn More About My Process</a>
+        </div>
+    </section>
+
+     <hr class="bold-divider" />
+
+     {sortedFeatured.length > 0 && (
+        <section id="featured-posts" class="section-padding">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 2rem;">From the Blog</h2>
+                <div class="posts-grid">
+                    {sortedFeatured.map(post => (
+                        <article class="post-card">
+                            <h3><a href={`/blog/${post.slug}/`}>{post.data.title}</a></h3>
+                            <p class="post-meta">{format(post.data.pubDate, 'MMMM d, yyyy')}</p>
+                            <p>{post.data.description}</p>
+                            <a href={`/blog/${post.slug}/`} class="read-more">Read More &rarr;</a>
+                        </article>
+                    ))}
+                </div>
+                 <div style="text-align: center; margin-top: 2rem;">
+                     <a href="/blog" class="button button-primary">Visit the Blog</a>
+                 </div>
+            </div>
+        </section>
+    )}
+
+     <section class="section-padding">
+        <div class="container">
+            <NewsletterSignup />
+        </div>
+     </section>
+
+</Layout>
+
+<style>
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+    .posts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .post-card { background-color: var(--color-white); padding: 1.5rem; border-radius: var(--border-radius); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .post-card h3 { margin-top: 0; }
+    .post-card h3 a { color: var(--color-primary); text-decoration: none; }
+    .post-card h3 a:hover { color: var(--color-accent); }
+    .post-meta { font-size: 0.85rem; color: #6c757d; margin-bottom: 0.5rem; }
+    .read-more { color: var(--color-accent); text-decoration: none; font-weight: bold; }
+    .read-more:hover { text-decoration: underline; }
+</style>

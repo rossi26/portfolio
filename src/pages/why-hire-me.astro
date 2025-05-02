@@ -1,0 +1,124 @@
+---
+// src/pages/why-hire-me.astro
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Why Hire Me?" description="Learn about my process and why I'm the right fit for your small business website.">
+    <div class="container section-padding">
+        <h1>Why Choose Me for Your Website?</h1>
+        <p class="subtitle">Focused on speed, affordability, and results for small businesses & individuals.</p>
+
+        <hr class="bold-divider" />
+
+        <section id="benefits">
+            <h2>Your Advantage</h2>
+            <p>Building a website can feel overwhelming. I simplify the process and deliver tangible benefits:</p>
+             <div class="benefits-grid">
+                <div class="benefit-item">
+                    <h3>🚀 Blazing Fast Sites</h3>
+                    <p>Using Astro means top-tier performance baked in, leading to better user experience and SEO rankings.</p>
+                </div>
+                 <div class="benefit-item">
+                    <h3>💰 Affordable Solutions</h3>
+                    <p>My streamlined process focuses on your essential needs, providing professional quality without enterprise agency costs.</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>🤝 Post-Launch Support</h3>
+                    <p>I offer clear support and maintenance options to keep your site running smoothly long after launch.</p>
+                </div>
+                 <div class="benefit-item">
+                    <h3>🔒 You Own Everything</h3>
+                    <p>No vendor lock-in. You get full ownership of your code and content, hosted wherever you choose.</p>
+                </div>
+                 <div class="benefit-item">
+                    <h3>📱 Mobile-First Approach</h3>
+                    <p>Your site will look and function flawlessly on desktops, tablets, and smartphones.</p>
+                </div>
+                 <div class="benefit-item">
+                    <h3>🔧 Modern Technology</h3>
+                    <p>Leveraging tools like Astro ensures your site is built on a future-proof, efficient foundation.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="bold-divider" />
+
+        <section id="process">
+             <h2>My Process: Simple & Transparent</h2>
+             <p>I follow a clear roadmap to ensure your project stays on track and meets your goals.</p>
+             <img src="/placeholder-roadmap-detailed.svg" alt="Workflow: Discovery, Wireframing, Design, Development, Testing, Launch, Support" style="max-width: 100%; height: auto; margin-block: 1.5rem; border: 1px dashed #ccc; padding: 1rem; text-align: center;">
+             <ol class="roadmap-steps">
+                <li><strong>Discovery:</strong> We discuss your goals, audience, and requirements.</li>
+                <li><strong>Wireframing/Planning:</strong> We outline the structure and user flow.</li>
+                <li><strong>Design:</strong> Creating the visual look and feel based on your brand.</li>
+                <li><strong>Development:</strong> Building the site with clean code and best practices (Astro!).</li>
+                <li><strong>Testing & Review:</strong> Ensuring everything works perfectly across devices.</li>
+                <li><strong>Launch:</strong> Deploying your site to the world!</li>
+                <li><strong>Support:</strong> Ongoing maintenance and updates (optional).</li>
+             </ol>
+        </section>
+
+        <hr class="bold-divider" />
+
+        <section id="audit" style="background-color: var(--color-primary); color: var(--color-white); padding: 3rem; text-align: center; border-radius: var(--border-radius); margin-top: 3rem;">
+            <h2 style="color: var(--color-white);">Get a Free Landing Page Audit</h2>
+            <p>Not sure where to start? Let me analyze your existing landing page (or your idea for one) for free.</p>
+            <p>I'll check for performance bottlenecks, mobile usability issues, and basic SEO opportunities.</p>
+            <a href="/contact?subject=Free+Audit+Request" class="button button-accent" style="margin-top: 1rem;">Request Your Free Audit</a>
+        </section>
+
+    </div>
+</Layout>
+
+<style>
+.container { max-width: 900px; margin: 0 auto; }
+.subtitle { font-size: 1.2rem; color: #6c757d; margin-top: -1rem; margin-bottom: 2rem; }
+section { margin-bottom: 3rem; }
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+.benefit-item {
+    background-color: #f8f9fa; /* Light background */
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--color-accent);
+}
+.benefit-item h3 {
+    margin-top: 0;
+    color: var(--color-primary);
+}
+.roadmap-steps {
+    list-style: none;
+    padding-left: 0;
+    counter-reset: step-counter;
+}
+.roadmap-steps li {
+    counter-increment: step-counter;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 2.5em; /* Space for counter */
+}
+.roadmap-steps li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.8em;
+    height: 1.8em;
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-family: var(--font-secondary);
+}
+.roadmap-steps li strong {
+    display: block; /* Put title on its own line */
+    margin-bottom: 0.2em;
+    color: var(--color-primary);
+}
+</style>
