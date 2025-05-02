@@ -1,26 +1,45 @@
 ---
 // src/pages/contact.astro
+// Import the main layout component
 import Layout from '../layouts/Layout.astro';
 
 // Get query params for potential pre-filled subject (e.g., from audit button)
 const subjectParam = Astro.url.searchParams.get('subject');
 ---
+{/* Use the main Layout component */}
 <Layout title="Contact Me" description="Get in touch for project inquiries, questions, or a free landing page audit.">
     <div class="container section-padding">
         <h1>Contact Me</h1>
         <p class="subtitle">Have a project in mind, a question, or want that free audit? Let's talk!</p>
 
+        {/* Divider */}
         <hr class="bold-divider" />
 
         <div class="contact-grid">
             <div class="contact-form">
                 <h2>Send a Message</h2>
-                 <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-                    <p class="hidden" style="display: none;">
-                         <label>Don’t fill this out if you’re human: <input name="bot-field"></label>
-                     </p>
+                 {/*
+                    Netlify Form Integration:
+                    - Add the `data-netlify="true"` attribute to the <form> tag.
+                    - Add a hidden input with `name="form-name"` and `value` matching the form's name attribute.
+                    - Add `netlify-honeypot="bot-field"` to the <form> tag for spam protection.
+                    - Add a hidden honeypot field matching the `netlify-honeypot` value.
+                 */}
+                 <form
+                    name="contact"  {/* This name is important for Netlify UI */}
+                    method="POST"
+                    data-netlify="true"
+                    netlify-honeypot="bot-field" /* Points to the honeypot input */
+                 >
+                    {/* Required hidden input for Netlify to identify the form */}
                     <input type="hidden" name="form-name" value="contact" />
 
+                    {/* Honeypot field for spam prevention. Should be hidden for users. */}
+                     <p class="hidden" style="display: none;">
+                         <label>Don’t fill this out if you’re human: <input name="bot-field"></label>
+                     </p>
+
+                    {/* Visible Form Fields */}
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required>
@@ -31,39 +50,54 @@ const subjectParam = Astro.url.searchParams.get('subject');
                     </div>
                     <div class="form-group">
                         <label for="subject">Subject</label>
+                        {/* Pre-fill subject if passed via URL parameter */}
                         <input type="text" id="subject" name="subject" value={subjectParam || ''} required>
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
                         <textarea id="message" name="message" rows="5" required></textarea>
                     </div>
+                    {/* Submit Button */}
                     <button type="submit" class="button button-accent">Send Message</button>
                 </form>
             </div>
 
+            {/* Contact Information Section */}
             <div class="contact-info">
                 <h2>Other Ways to Reach Me</h2>
                 <p>You can also find me here:</p>
                 <ul>
+                    {/* Replace with your actual contact details */}
                     <li><strong>Email:</strong> <a href="mailto:your.email@example.com">your.email@example.com</a></li>
                     <li><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">[Your LinkedIn Profile]</a> (Optional)</li>
                     <li><strong>GitHub:</strong> <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">[Your GitHub Profile]</a> (Optional)</li>
-                    </ul>
+                </ul>
                 <p>I aim to respond within 1-2 business days.</p>
             </div>
         </div>
     </div>
 </Layout>
 
+{/* Styles for the contact page */}
 <style>
-.container { max-width: 1000px; margin: 0 auto; }
-.subtitle { font-size: 1.2rem; color: #6c757d; margin-top: -1rem; margin-bottom: 2rem; }
+.container {
+    max-width: 1000px; /* Max width for the content */
+    margin: 0 auto; /* Center the container */
+    padding: 0 1rem; /* Padding on smaller screens */
+}
+.subtitle {
+    font-size: 1.2rem;
+    color: #6c757d; /* Subdued text color */
+    margin-top: -1rem; /* Adjust spacing */
+    margin-bottom: 2rem;
+}
 .contact-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
+    grid-template-columns: 1fr; /* Single column layout by default */
+    gap: 3rem; /* Space between form and info */
     margin-top: 2rem;
 }
+/* Switch to two columns on medium screens and up */
 @media (min-width: 768px) {
     .contact-grid {
         grid-template-columns: 2fr 1fr; /* Form takes more space */
@@ -71,49 +105,67 @@ const subjectParam = Astro.url.searchParams.get('subject');
 }
 .contact-form h2, .contact-info h2 {
     margin-top: 0;
-    border-bottom: 2px solid var(--color-accent);
+    border-bottom: 2px solid var(--color-accent); /* Accent color underline */
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
+    color: var(--color-primary); /* Use primary color for headings */
 }
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem; /* Space between form fields */
 }
 .form-group label {
-    display: block;
+    display: block; /* Label on its own line */
     margin-bottom: 0.5rem;
     font-weight: bold;
     color: var(--color-primary);
 }
 .form-group input,
 .form-group textarea {
-    width: 100%;
+    width: 100%; /* Full width inputs */
     padding: 0.75em;
-    border: 1px solid #ced4da;
-    border-radius: var(--border-radius);
-    font-family: inherit;
+    border: 1px solid #ced4da; /* Standard border */
+    border-radius: var(--border-radius); /* Use global border radius */
+    font-family: inherit; /* Use body font */
     font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
 }
+/* Style for focused inputs */
 .form-group input:focus,
 .form-group textarea:focus {
-    outline: none;
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 2px rgba(var(--color-accent-rgb), 0.25); /* Define --color-accent-rgb or use a fixed color */
+    outline: none; /* Remove default outline */
+    border-color: var(--color-accent); /* Highlight border with accent color */
+    /* Optional: Add a subtle box-shadow */
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.25); /* Coral Orange glow */
 }
 .contact-info ul {
-    list-style: none;
+    list-style: none; /* Remove default list bullets */
     padding: 0;
 }
 .contact-info li {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; /* Space between contact items */
 }
 .contact-info li strong {
-    color: var(--color-primary);
+    color: var(--color-primary); /* Primary color for labels */
 }
 .contact-info a {
-    color: var(--color-accent);
+    color: var(--color-accent); /* Accent color for links */
     text-decoration: underline;
+    transition: color 0.2s ease;
 }
 .contact-info a:hover {
-    color: var(--color-primary);
+    color: var(--color-primary); /* Primary color on hover */
+}
+/* Style for the hidden honeypot field container */
+.hidden {
+    display: none; /* Make sure this is not visible */
 }
 </style>
+/* explanation of Changes:*/
+
+1.  **`data-netlify="true"`:** Added to the `<form>` tag. This is the primary attribute Netlify looks for to enable form handling.
+2.  **`name="contact"`:** Added a `name` attribute to the `<form>`. This name will appear in your Netlify dashboard under "Forms".
+3.  **Hidden Input `form-name`:** Added `<input type="hidden" name="form-name" value="contact" />`. This is required by Netlify and its `value` must match the `name` attribute of the form.
+4.  **`netlify-honeypot="bot-field"`:** Added to the `<form>` tag. This activates Netlify's basic spam protection.
+5.  **Hidden Honeypot Input:** Added the `<p class="hidden">...<input name="bot-field">...</p>`. This field should remain hidden from users. If bots fill it in (because they often fill all fields), Netlify will mark the submission as spam. The `name` attribute (`bot-field`) must match the value given in `netlify-honeypot`.
+
+After replacing the content of your `src/pages/contact.astro` with this updated code, commit the changes and redeploy your site to Netlify. Netlify should automatically detect the form, and submissions will start appearing in your Netlify site dashboard under the "Forms" section */
