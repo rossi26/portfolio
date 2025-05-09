@@ -15,7 +15,7 @@ const allTags = [...new Set(sortedPosts.flatMap(post => post.data.tags || []))];
 <Layout title="Blog" description="Articles and insights on web development, Astro, design, and small business tech.">
     <div class="container section-padding">
         <h1>Blog</h1>
-        <p class="subtitle">Thoughts, tips, and tutorials.</p>
+        <p class="subtitle">Pensieri, tips e tutorials.</p>
 
         <div class="search-placeholder" style="margin-bottom: 2rem; text-align: center; padding: 1rem; background-color: #e9ecef; border-radius: var(--border-radius);">
             <label for="blog-search" style="margin-right: 0.5rem;">Search Posts:</label>
@@ -29,7 +29,7 @@ const allTags = [...new Set(sortedPosts.flatMap(post => post.data.tags || []))];
                 {allTags.map(tag => (
                      <a href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="tag">{tag}</a>
                 ))}
-                 <a href="/blog" class="tag" style="background-color: var(--color-primary); color: var(--color-white);">Show All</a>
+                 <a href="/blog" class="tag" style="background-color: var(--color-primary); color: var(--color-white);">Mostra tutto</a>
             </div>
         )}
 
@@ -37,7 +37,7 @@ const allTags = [...new Set(sortedPosts.flatMap(post => post.data.tags || []))];
 
         <div class="post-list">
             {sortedPosts.length === 0 ? (
-                <p>No blog posts found yet. Check back soon!</p>
+                <p>Nessuno posts trovato. controlla presto!</p>
             ) : (
                 sortedPosts.map(post => (
                     <article class="post-list-item">
@@ -52,7 +52,7 @@ const allTags = [...new Set(sortedPosts.flatMap(post => post.data.tags || []))];
                             ))}
                         </p>
                         <p>{post.data.description}</p>
-                        <a href={`/blog/${post.slug}/`} class="button button-primary read-more-btn">Read More &rarr;</a>
+                        <a href={`/blog/${post.slug}/`} class="button button-primary read-more-btn">Leggi di più &rarr;</a>
                     </article>
                 ))
             )}

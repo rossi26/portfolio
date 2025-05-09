@@ -160,7 +160,7 @@ const subjectParam = Astro.url.searchParams.get('subject');
     display: none; /* Make sure this is not visible */
 }
 </style>
-/* explanation of Changes:*/
+<!-- * explanation of Changes:*/
 
 1.  **`data-netlify="true"`:** Added to the `<form>` tag. This is the primary attribute Netlify looks for to enable form handling.
 2.  **`name="contact"`:** Added a `name` attribute to the `<form>`. This name will appear in your Netlify dashboard under "Forms".
@@ -168,4 +168,4 @@ const subjectParam = Astro.url.searchParams.get('subject');
 4.  **`netlify-honeypot="bot-field"`:** Added to the `<form>` tag. This activates Netlify's basic spam protection.
 5.  **Hidden Honeypot Input:** Added the `<p class="hidden">...<input name="bot-field">...</p>`. This field should remain hidden from users. If bots fill it in (because they often fill all fields), Netlify will mark the submission as spam. The `name` attribute (`bot-field`) must match the value given in `netlify-honeypot`.
 
-After replacing the content of your `src/pages/contact.astro` with this updated code, commit the changes and redeploy your site to Netlify. Netlify should automatically detect the form, and submissions will start appearing in your Netlify site dashboard under the "Forms" section */
+After replacing the content of your `src/pages/contact.astro` with this updated code, commit the changes and redeploy your site to Netlify. Netlify should automatically detect the form, and submissions will start appearing in your Netlify site dashboard under the "Forms" section */ -->

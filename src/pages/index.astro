@@ -14,24 +14,24 @@ const featuredPosts = await getCollection('blog', ({ data }) => {
 const sortedFeatured = featuredPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
 ---
 
-<Layout title="Home - Your Name | Web Development for Small Businesses">
+<Layout title="Home - Webnauti | Svilippo siti web per la tua impresa">
     <section class="hero section-padding" style="background-color: var(--color-primary); color: var(--color-white); text-align: center;">
         <div class="container">
-            <h1 style="color: var(--color-white); font-size: 3rem;">Build Your Blazing-Fast Website</h1>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Affordable, high-performance sites for small businesses using Astro.</p>
-            <a href="/portfolio/my-project" class="button button-accent">View My Work</a>
-            <a href="/why-hire-me#audit" class="button" style="background-color: transparent; border: 1px solid var(--color-white); color: var(--color-white); margin-left: 1rem;">Get Free Audit</a>
+            <h1 style="color: var(--color-white); font-size: 3rem;">Ottieni un sito per il tuo business veloce come un Fulmine</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Conveniente, superveloce e comodo</p>
+            <a href="/portfolio/my-project" class="button button-accent">Guarda i miei lavori</a>
+            <a href="/why-hire-me#audit" class="button" style="background-color: transparent; border: 1px solid var(--color-white); color: var(--color-white); margin-left: 1rem;">Controlla il tuo sito</a>
         </div>
     </section>
 
     <section id="skills" class="section-padding">
         <div class="container">
-             <h2 style="text-align: center; margin-bottom: 2rem;">Core Competencies</h2>
+             <h2 style="text-align: center; margin-bottom: 2rem;">Punti chiave</h2>
             <div class="skills-grid">
-                <SkillCard icon="astro" title="Astro Static Sites" description="Leveraging Astro for maximum performance, security, and SEO." />
-                <SkillCard icon="mobile" title="Mobile-First Design" description="Ensuring your site looks and works perfectly on all devices." />
-                 <SkillCard icon="business" title="Small Business Solutions" description="Tailored web strategies focused on growth for small teams." />
-                <SkillCard icon="performance" title="Performance Optimization" description="Achieving 90+ Lighthouse scores for speed and user experience." />
+                <SkillCard icon="astro" title="Sito web statico" description="Sfuttiamo le ultime tecnologie per massimizzare prestazioni, sicuerezza e SEO." />
+                <SkillCard icon="mobile" title="Design Mobile-First" description="Ci assicuriamo che il tuo sito appaia e funzioni perfettamente su tutti i dispositivi." />
+                 <SkillCard icon="business" title="Ottimizzato per le piccole imprese" description="Strategie web personalizzare per la crescita di piccole imprese." />
+                <SkillCard icon="performance" title="Performance Optimization" description="Raggiungere 90+ punteggio Lighthouse per la massima velocità e user experience." />
             </div>
         </div>
     </section>
@@ -40,10 +40,10 @@ const sortedFeatured = featuredPosts.sort((a, b) => b.data.pubDate.valueOf() - a
 
     <section id="portfolio-teaser" class="section-padding">
         <div class="container" style="text-align: center;">
-            <h2>Featured Project</h2>
-            <p>See how I helped a client achieve [Specific Result, e.g., 40% faster load times].</p>
+            <h2>Progetti</h2>
+            <p>Guarda come abbiamo aiutato i clienti a raggiungere i loro obiettivi.</p>
             <img src="/placeholder-portfolio.jpg" alt="Portfolio project mockup" style="max-width: 100%; height: auto; border-radius: var(--border-radius); margin-block: 1rem;">
-            <a href="/portfolio/my-project" class="button button-primary">View Case Study</a>
+            <a href="/portfolio/my-project" class="button button-primary">Guarda i miei lavori</a>
         </div>
     </section>
 
@@ -51,10 +51,10 @@ const sortedFeatured = featuredPosts.sort((a, b) => b.data.pubDate.valueOf() - a
 
     <section id="process-teaser" class="section-padding" style="background-color: #e9ecef;">
         <div class="container" style="text-align: center;">
-            <h2>My Simple, Transparent Process</h2>
-            <p>From discovery to launch, I keep you informed every step of the way.</p>
+            <h2>il nostro processo è semplice e trasparente</h2>
+            <p>Dalla prima bozza al lancio vi teniamo informati ad ogni passo.</p>
              <img src="/placeholder-roadmap.svg" alt="Workflow: Discovery, Wireframing, Development, Launch" style="max-width: 100%; height: auto; margin-block: 1rem;">
-            <a href="/why-hire-me#process" class="button button-primary">Learn More About My Process</a>
+            <a href="/why-hire-me#process" class="button button-primary">Scopri di più</a>
         </div>
     </section>
 
@@ -63,19 +63,19 @@ const sortedFeatured = featuredPosts.sort((a, b) => b.data.pubDate.valueOf() - a
      {sortedFeatured.length > 0 && (
         <section id="featured-posts" class="section-padding">
             <div class="container">
-                <h2 style="text-align: center; margin-bottom: 2rem;">From the Blog</h2>
+                <h2 style="text-align: center; margin-bottom: 2rem;">Dal Blog</h2>
                 <div class="posts-grid">
                     {sortedFeatured.map(post => (
                         <article class="post-card">
                             <h3><a href={`/blog/${post.slug}/`}>{post.data.title}</a></h3>
                             <p class="post-meta">{format(post.data.pubDate, 'MMMM d, yyyy')}</p>
                             <p>{post.data.description}</p>
-                            <a href={`/blog/${post.slug}/`} class="read-more">Read More &rarr;</a>
+                            <a href={`/blog/${post.slug}/`} class="read-more">Leggi più &rarr;</a>
                         </article>
                     ))}
                 </div>
                  <div style="text-align: center; margin-top: 2rem;">
-                     <a href="/blog" class="button button-primary">Visit the Blog</a>
+                     <a href="/blog" class="button button-primary">Visita il Blog</a>
                  </div>
             </div>
         </section>
